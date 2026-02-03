@@ -10,9 +10,10 @@ export function App1() {
             <div>
                 <div className="card">
 
-                    <input type="text" id='input-tarefa' onChange={(e) => setValorDoInput(e.target.value)} />
+                    <input type="text" id='input-tarefa' value={valorDoInput} onChange={(e) => setValorDoInput(e.target.value)} />
                     <button onClick={() => {
                         setTarefas(oldState => [...oldState, valorDoInput])
+                        setValorDoInput("")
                         
                     }}>Adicionar Tarefa</button>
                 </div>

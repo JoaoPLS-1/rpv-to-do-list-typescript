@@ -4,13 +4,22 @@
   padding: 2rem;
   text-align: center;
 }
-
-
-.card {
-  border: 1px dashed red;
+.card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-input{
-  padding: 0.6em 1.2em;
+
+.input-wrapper {
+ position: relative;
+}
+
+.erro{
+  position: absolute;
+  color: red;
+  font-size: 12px;
+  top: 24px;
 }
 

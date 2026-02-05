@@ -25,6 +25,8 @@ export function App1() {
         active: false,
         description: ""
     })
+    const [mostraModal, setMostraModal] = useState<boolean>(false);
+    const [realizarAcao, setRealizarAcao] = useState<boolean>(false);
 
     function adicionarTarefa(): void {
         if (valorDoInput.trim() === "") {
@@ -92,8 +94,21 @@ export function App1() {
                         </div>
                     ))
                 }
-                
+
             </ul>
+            {mostraModal && (
+                <div className='modal-wrapper'>
+                    <div className='modal'>
+
+                        <h1>Meu modal</h1>
+                        <h3>Deseja seguir com a sua solicitação?</h3>
+                        <div className='modal-buttons'>
+                            <button onClick={() => setRealizarAcao(false)}>Não</button>
+                            <button onClick={() => setRealizarAcao(true)}>Sim</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
 
     )

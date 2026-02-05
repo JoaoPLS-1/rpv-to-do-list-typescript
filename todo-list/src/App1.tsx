@@ -1,15 +1,26 @@
 import { useState } from 'react'
 import './App.css'
+import { LuCheck, LuTrash } from 'react-icons/lu';
 
 interface IErro {
     active: boolean;
     description: string;
 }
 
+interface ITarefa {
+    id: string
+    descricao: string
+    criadoEm: string
+    ativo: boolean
+    concluido: boolean
+}
+
+
+
 
 export function App1() {
     const [valorDoInput, setValorDoInput] = useState<string>("")
-    const [tarefas, setTarefas] = useState<string[]>([])
+    const [tarefas, setTarefas] = useState<ITarefa[]>([])
     const [erro, setErro] = useState<IErro>({
         active: false,
         description: ""
@@ -36,16 +47,26 @@ export function App1() {
         })
 
         const tarefasFiltradas = tarefas.filter(
-            tarefa => tarefa.trim().toLowerCase() === valorDoInput.trim().toLowerCase())
+            tarefa => tarefa.descricao.trim().toLowerCase() === valorDoInput.trim().toLowerCase())
 
-            if (tarefasFiltradas.length > 0){
-                setErro({
-                    active: true,
-                    description: "Tarefa já cadastrada."
-                })
-                return
-            }
-        setTarefas(oldState => [...oldState, valorDoInput])
+        if (tarefasFiltradas.length > 0) {
+            setErro({
+                active: true,
+                description: "Tarefa já cadastrada."
+            })
+            return
+        }
+
+        const montarObjetoTarefa: ITarefa = {
+            id: Math.random.toString(36).substring(2, 9),
+            descricao: valorDoInput,
+            criadoEm: new Date().toISOString(),
+            concluido: false,
+            ativo: true
+
+        }
+
+        setTarefas(oldState => [...oldState, montarObjetoTarefa])
         setValorDoInput("")
     }
 
@@ -62,9 +83,16 @@ export function App1() {
                 </div>
             </div>
             <ul>
-                {tarefas.map((tarefa, index) => (
-                    <li key={index}>{tarefa}</li>
-                ))}
+                {
+                    tarefas.map((tarefa) => (
+                        <div className='item-list'>
+                            <li key={tarefa.id}>{tarefa.descricao}</li>
+                            <LuTrash />
+                            <LuCheck />
+                        </div>
+                    ))
+                }
+                
             </ul>
         </>
 
